@@ -6,30 +6,32 @@ services:
     ports:
       - 8080:8080
       - 50000:50000
-    links:
-      - socatdockersock
     privileged: true
     volumes:
       - ./.jenkins0:/var/jenkins_home
       - ./.jenkins-backup:/var/jenkins_backup
       - ./.jenkins-workspace:/home/jenkins
       - ./.jenkins-workspace/.jenkins:/home/jenkins/.jenkins
+    networks:
+      - mngr
 
   socatdockersock:
     image: bobrik/socat:latest
+    networks:
+      - mngr
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
 
   nexus:
-    image: sonatype/nexus3:3.5.0
+    image: sonatype/nexus3:3.60.0
     volumes:
-      - ./.nexus:/nexus-data
+      - ./.nexus:/sonatupe-work
     ports:
       - 8081:8081
       - 20000:20000
-    links:
-      - jenkins0
+    networks:
+      - mngr
 
   bitbucket:
     image: atlassian/bitbucket-server:5.2.3
