@@ -8,9 +8,9 @@
 ### Запуск:
 Для загрузки и запуска курса нужно выполнить следующие команды:
 ```
-git clone https://github.com/gavriluk/jenkins-pipeline-workshop
+git clone https://github.com/alternz/jenkins-pipeline-workshop
 cd jenkins-pipeline-workshop
-docker-compose up -d
+docker compose up -d
 ```
 Просмотр запущенных контейнеров осуществляется командой
 ```docker ps```
